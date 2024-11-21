@@ -11,6 +11,7 @@ export class CalculationComponent implements OnInit {
   vechileType: string[] = ['Common', 'Luxury'];
   vehicleData: Vehicle[] = [];
   selectedVehicleType: string;
+  error_message:string=""
 
   constructor(private service: VehicleService) {}
 
@@ -39,7 +40,11 @@ export class CalculationComponent implements OnInit {
             totalCost: data.totalCost,
           };
       this.vehicleData.push(vehicle_price);
-    },);
+    },
+    (err) => { 
+      this.error_message="Error occured during loading data..."
+     } 
+  );
   }
 
   set updateInput(value: string) {
@@ -54,7 +59,7 @@ export class CalculationComponent implements OnInit {
     if (this.inputValue == undefined) {
       return;
     }
-
+    this.error_message=""
     this.calculate_price();
   }
 }
